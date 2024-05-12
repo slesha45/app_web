@@ -9,10 +9,15 @@ import Homepage from "./pages/homepage/Homepage";
 import Register from "./pages/register/Register";
 import Navbar from "./components/Navbar";
 
+//Toast Config
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <Router>
-      <Navbar/>
+      <Navbar />
+      <ToastContainer/>
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/login' element={<Login />} />

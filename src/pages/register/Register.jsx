@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { registerUserApi } from '../../apis/Api';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   //Logic Section
@@ -68,7 +70,7 @@ const Register = () => {
       isValid = false;
     }
 
-    if(confirmPassword.trim() != password.trim()){
+    if (confirmPassword.trim() != password.trim()) {
       setConfirmPasswordError("Password and confirm password does not match")
       isValid = false;
     }
@@ -83,11 +85,32 @@ const Register = () => {
 
     //validate
     var isValidated = validate();
-    if(!isValidated){
+    if (!isValidated) {
       return
     }
 
-    console.log(firstName, lastName, email, password, confirmPassword)
+    //sending request to the api
+
+    //Making json object
+    const data = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "password": password
+    }
+
+    registerUserApi(data).then((res) => {
+      // console.log(res.data)
+
+      //Received data : success, message
+      if(res.data.success == false){
+        toast.error(res.data.message)
+      } else {
+        toast.success(res.data.message)
+      }
+    })
+
+    // console.log(firstName, lastName, email, password, confirmPassword)
   }
 
   return (
@@ -139,3 +162,8 @@ export default Register;
 //Step 1: Make a complete UI or register page (Fields, button, etc)
 //Step 2 : Input (type) - Make a state
 //Step 3 : Onchange - Set the value to the state
+
+//Make a login page
+//Make a path in App.js 
+//Make a frontend with email & Password
+//Make a use state
