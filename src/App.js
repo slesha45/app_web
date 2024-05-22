@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 //Toast Config
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminDashboard from "./pages/admin/admin_dashboard/AdminDashboard";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <Route path='/' element={<Homepage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+
+        {/*Admin routes*/}
+        <Route path= '/admin/dashboard' element={<AdminDashboard/>}/>
       </Routes>
     </Router>
   );
