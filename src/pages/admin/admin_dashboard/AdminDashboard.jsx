@@ -1,8 +1,22 @@
-import React, { useState } from 'react'
-import { createProductApi } from '../../../apis/Api'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { createProductApi, getAllProducts } from '../../../apis/Api'
 
 const AdminDashboard = () => {
+
+    // 1.State for all fetched products
+    const [products, setProducts] = useState([]) //array
+
+    //2.Call API initially(Page Load) - Set all fetched products to state (1)
+    useEffect(() => {
+        getAllProducts().then((res) => {
+            //response : res.data.products (All Products)
+            setProducts(res.data.Products)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }, [])
+    console.log(products)
 
     //use state
     const [productName, setProductName] = useState('')
@@ -24,7 +38,7 @@ const AdminDashboard = () => {
     //handle submit
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+
         //make a form data(text, files)
         const formData = new FormData()
         formData.append('productName', productName)
@@ -35,14 +49,25 @@ const AdminDashboard = () => {
 
         //make an API call
         createProductApi(formData).then((res) => {
-            if (res.data.success === false) {
-                toast.error(res.data.message)                
-            } else{
+            //For successful api
+            if (res.status === 201) {
                 toast.success(res.data.message)
+            }
+        }).catch((error) => {
+            //for error status code
+            if (error.response) {
+                if (error.response.status === 400) {
+                    toast.warning(error.response.data.message)
+                } else if (error.response.status === 500) {
+                    toast.error(error.response.data.message)
+                } else {
+                    toast.error("Something went wrong!")
+                }
+            } else {
+                toast.error("Something went wrong!")
             }
         })
     }
-
 
     return (
         <>
@@ -115,20 +140,24 @@ const AdminDashboard = () => {
 
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <img width={'40px'} height={'40px'} src="https://th.bing.com/th?id=OIP.Vtxy0FjT_EfudI4cQk1kzAHaE8&w=306&h=204&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2%22" alt="" />
-                            </td>
-                            <td>flower</td>
-                            <td>200</td>
-                            <td>Indoor</td>
-                            <td> Beautiful flower</td>
+                        {
+                            products.map((singleProduct) => (
+                                <tr>
+                                    <td>
+                                        <img width={'40px'} height={'40px'} src={`http://localhost:5000/products/${singleProduct.productImage}`} alt="" />
+                                    </td>
+                                    <td>{singleProduct.productName}</td>
+                                    <td>{singleProduct.productPrice}</td>
+                                    <td>{singleProduct.productCategory}</td>
+                                    <td>{singleProduct.productDescription}</td>
 
-                            <td>
-                                <button className='btn btn-primary'>Edit</button>
-                                <button className='btn btn-danger ms-2'>Delete</button>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <button className='btn btn-primary'>Edit</button>
+                                        <button className='btn btn-danger ms-2'>Delete</button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
 
