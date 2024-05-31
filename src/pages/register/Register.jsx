@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { registerUserApi } from '../../apis/Api';
 import { toast } from 'react-toastify';
-
+import { registerUserApi } from '../../apis/Api';
+import './Register.css';
 const Register = () => {
   //Logic Section
 
@@ -103,7 +103,7 @@ const Register = () => {
       // console.log(res.data)
 
       //Received data : success, message
-      if(res.data.success == false){
+      if (res.data.success == false) {
         toast.error(res.data.message)
       } else {
         toast.success(res.data.message)
@@ -114,46 +114,54 @@ const Register = () => {
   }
 
   return (
-    <>
-      <div className='container'>
-        <h1>Create an account!</h1>
+    <div className='register-container'>
+      <div className="curved-shape"></div>
+      <div className="register-box">
+        <div className="register-form">
 
-        <form className='w-50'>
-          <label>Firstname : {firstName}</label>
-          <input onChange={handleFirstName} type='text' className='form-control' placeholder='Enter your first name'></input>
-          {
-            firstNameError && <p className='text-danger'>{firstNameError}</p>
-          }
+          <h1>Create an account!</h1>
 
-          <label className='mt-2'>Lastname : {lastName}</label>
-          <input onChange={handleLastName} type='text' className='form-control' placeholder='Enter your last name'></input>
-          {
-            lastNameError && <p className='text-danger'>{lastNameError}</p>
-          }
+          <form className='w-50'>
+            <label>Firstname : {firstName}</label>
+            <input onChange={handleFirstName} type='text' className='form-control' placeholder='Enter your first name'></input>
+            {
+              firstNameError && <p className='text-danger'>{firstNameError}</p>
+            }
 
-          <label className='mt-2'>Email : {email}</label>
-          <input onChange={handleEmail} type='text' className='form-control' placeholder='Enter your email'></input>
-          {
-            emailError && <p className='text-danger'>{emailError}</p>
-          }
+            <label className='mt-2'>Lastname : {lastName}</label>
+            <input onChange={handleLastName} type='text' className='form-control' placeholder='Enter your last name'></input>
+            {
+              lastNameError && <p className='text-danger'>{lastNameError}</p>
+            }
 
-          <label className='mt-2'>Password</label>
-          <input onChange={handlePassword} type='text' className='form-control' placeholder='Enter your password'></input>
-          {
-            passwordError && <p className='text-danger'>{passwordError}</p>
-          }
+            <label className='mt-2'>Email : {email}</label>
+            <input onChange={handleEmail} type='text' className='form-control' placeholder='Enter your email'></input>
+            {
+              emailError && <p className='text-danger'>{emailError}</p>
+            }
 
-          <label className='mt-2'>Confirm Password</label>
-          <input onChange={handleConfirmPassword} type='text' className='form-control' placeholder='Confirm your password'></input>
-          {
-            confirmPasswordError && <p className='text-danger'>{confirmPasswordError}</p>
-          }
+            <label className='mt-2'>Password</label>
+            <input onChange={handlePassword} type='text' className='form-control' placeholder='Enter your password'></input>
+            {
+              passwordError && <p className='text-danger'>{passwordError}</p>
+            }
 
-          <button onClick={handleSubmit} className='btn btn-dark mt-2 w-100'>Create an Account</button>
+            <label className='mt-2'>Confirm Password</label>
+            <input onChange={handleConfirmPassword} type='text' className='form-control' placeholder='Confirm your password'></input>
+            {
+              confirmPasswordError && <p className='text-danger'>{confirmPasswordError}</p>
+            }
 
-        </form>
+            <button onClick={handleSubmit} className='btn btn-dark'>Register</button>
+          </form>
+          <p className='login-text'>Already have an account? <a href='/login'>Login</a></p>
+        </div>
+        <div className="welcome-text">
+          <h2>WELCOME!</h2>
+          <p>Join us to find your dream home. Create an account now!</p>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -164,6 +172,6 @@ export default Register;
 //Step 3 : Onchange - Set the value to the state
 
 //Make a login page
-//Make a path in App.js 
+//Make a path in App.js
 //Make a frontend with email & Password
 //Make a use state

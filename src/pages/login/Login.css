@@ -1,0 +1,104 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.login-box {
+    display: flex;
+    background: linear-gradient(to right, #fff 50%, #AB875F 50%);
+    width: 800px;
+    height: 400px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.login-form {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+}
+
+.login-form h2 {
+    color: #1e1e1e;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-form label {
+    color: #1e1e1e;
+    margin-bottom: 5px;
+}
+
+.login-form .form-control {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #f8f9fa;
+    color: #fff;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background: #AB875F;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background: #AB875F;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.signup-text {
+    color: #aaa;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-text a {
+    color: #AB875F;
+    text-decoration: none;
+}
+
+.welcome-text {
+    flex: 1;
+    background: #AB875F;
+    color: #fff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.login-container .curved-shape{
+    position: absolute;
+    right: 0;
+    top: -5px;
+    height: 600px;
+    width: 850px;
+    background: linear-gradient(45deg, #fff,#AB875F ); 
+    transform: rotate(10deg) skewY(40deg);  
+    transform-origin: bottom right;
+}
