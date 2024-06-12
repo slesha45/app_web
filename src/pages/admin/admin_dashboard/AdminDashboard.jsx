@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import { createProductApi, getAllProducts } from '../../../apis/Api'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { createProductApi, deleteProduct, getAllProducts } from '../../../apis/Api'
 
 const AdminDashboard = () => {
 
@@ -70,11 +70,30 @@ const AdminDashboard = () => {
         })
     }
 
+    //handle delete product
+    const handleDelete = (id) => {
+        const confirmDialog = window.confirm("Are you sure you want to delete?")
+        if (confirmDialog) {
+            //calling api
+            deleteProduct(id).then((res) => {
+                if (res.status === 201) {
+                    toast.success(res.data.message)
+                    //reload
+                    window.location.reload()
+                }
+            }).catch((error) => {
+                if (error.response.status === 500) {
+                    toast.error(error.response.data.message)
+                }
+            })
+        }
+    }
+
     return (
         <>
             <div className='container mt-3'>
                 <div className='d-flex justify-content-between'>
-                    <h3> Admin Dashbaord</h3>
+                    <h3> Admin Dashboard</h3>
 
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Add product
@@ -154,7 +173,7 @@ const AdminDashboard = () => {
 
                                     <td>
                                         <Link to={`/admin/update/${singleProduct._id}`} className='btn btn-primary'>Edit</Link>
-                                        <button className='btn btn-danger ms-2'>Delete</button>
+                                        <button onClick={() => handleDelete(singleProduct._id)} className='btn btn-danger ms-2'>Delete</button>
                                     </td>
                                 </tr>
                             ))
@@ -170,7 +189,7 @@ const AdminDashboard = () => {
 
 export default AdminDashboard
 
-//Edit product 
+//Edit product
 //Admin Dashboard (Table) pro1
 //Make a route (Admin Edit product)
 // Fill all the related information only
